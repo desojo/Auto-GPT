@@ -1,4 +1,5 @@
 import browse
+import twitter
 import json
 from memory import get_memory
 import datetime
@@ -112,7 +113,7 @@ def execute_command(command_name, arguments):
         elif command_name == "generate_image":
             return generate_image(arguments["prompt"])
         elif command_name == "post_tweet" or command_name == "tweet":
-            return post_tweet(arguments["tweet"])
+            return post_tweet(arguments["text"])
         elif command_name == "do_nothing":
             return "No action performed."
         elif command_name == "task_complete":
@@ -313,31 +314,11 @@ def delete_agent(key):
 ### Twitter Functions ###
 
 def post_tweet(tweet):
-    """Post a Tweet to the @AutoGPTweeter account using the Tweepy API"""
-    import tweepy
-    import json
-    global cfg
-
-    try:
-        # Get the twitter API keys from the config file
-        auth = tweepy.OAuthHandler(
-            cfg.twitter_api_key, cfg.twitter_api_key_secret,
-            cfg.twitter_access_token, cfg.twitter_access_token_secret)
-
-        api = tweepy.API(auth)
-        api.update_status(tweet)
-        print(f"Tweet posted: {tweet}")
-
-    except HttpError as e:
-        # Handle errors in the API call
-        error_details = json.loads(e.content.decode())
-
-        # Check if the error is related to an invalid or missing API key
-        if error_details.get("error", {}).get("code") == 403 and "invalid API key" in error_details.get("error", {}).get("message", ""):
-            return "Error: The provided Google API key is invalid or missing."
-        else:
-            return f"Error: {e}"
-
-    # Return the succes message
-    return f"Tweet posted: {tweet}"
-
+    """Post a tweet"""
+    # Check if the tweet is valid
+    if len(tweet) > 0 and len(tweet) <= 280:
+        # Post the tweet
+        twitter.post_tweet(tweet)
+        return f"Tweet posted: {tweet}"
+    else:
+        return "Invalid tweet, must be between 1 and 280 characters."
