@@ -54,6 +54,8 @@ class Config(metaclass=Singleton):
         self.twitter_bearer_token = os.getenv("TWITTER_BEARER_TOKEN")
         self.twitter_access_token = os.getenv("TWITTER_ACCESS_TOKEN")
         self.twitter_access_token_secret = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
+        self.twitter_client_id = os.getenv("TWITTER_CLIENT_ID")
+        self.twitter_client_secret = os.getenv("TWITTER_CLIENT_SECRET")
 
         if self.use_azure:
             self.load_azure_config()
