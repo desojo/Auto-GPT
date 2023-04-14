@@ -24,3 +24,4 @@ htmlcov/
 
 # For Macs Dev Environs: ignoring .Desktop Services_Store
 .DS_Store
+.devcontainer/devcontainer.json

@@ -49,6 +49,12 @@ class Config(metaclass=Singleton):
         self.use_azure = os.getenv("USE_AZURE") == 'True'
         self.execute_local_commands = os.getenv('EXECUTE_LOCAL_COMMANDS', 'False') == 'True'
 
+        self.twitter_api_key = os.getenv("TWITTER_API_KEY")
+        self.twitter_api_key_secret = os.getenv("TWITTER_API_KEY_SECRET")
+        self.twitter_bearer_token = os.getenv("TWITTER_BEARER_TOKEN")
+        self.twitter_access_token = os.getenv("TWITTER_ACCESS_TOKEN")
+        self.twitter_access_token_secret = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
+
         if self.use_azure:
             self.load_azure_config()
             openai.api_type = self.openai_api_type

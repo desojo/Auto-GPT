@@ -1,7 +1,10 @@
-FROM python:3.11-slim
-ENV PIP_NO_CACHE_DIR=yes
+FROM python:3.11
+
 WORKDIR /app
-COPY requirements.txt .
+COPY scripts/ /app
+COPY requirements.txt /app
+COPY .env /app
+
 RUN pip install -r requirements.txt
-COPY scripts/ .
-ENTRYPOINT ["python", "main.py"]
+
+CMD ["python3", "main.py"]
