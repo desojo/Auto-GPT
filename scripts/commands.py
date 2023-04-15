@@ -114,6 +114,8 @@ def execute_command(command_name, arguments):
             return generate_image(arguments["prompt"])
         elif command_name == "post_tweet" or command_name == "tweet":
             return post_tweet(arguments["text"])
+        elif command_name == "get_mentions":
+            return get_mentions()
         elif command_name == "do_nothing":
             return "No action performed."
         elif command_name == "task_complete":
@@ -318,7 +320,11 @@ def post_tweet(tweet):
     # Check if the tweet is valid
     if len(tweet) > 0 and len(tweet) <= 280:
         # Post the tweet
-        twitter.post_tweet(tweet)
-        return f"Tweet posted: {tweet}"
+        return twitter.post_tweet(tweet)
     else:
         return "Invalid tweet, must be between 1 and 280 characters."
+
+def get_mentions():
+    """Get mentions"""
+    return twitter.get_mentions()
+
